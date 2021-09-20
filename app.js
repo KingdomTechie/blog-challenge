@@ -26,13 +26,15 @@ const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pelle
 
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
+const postsArray = [];
+
 //------------------------//
 //      Home Routes       //
 //------------------------//
 
 app.get("/", (req, res) => {
 
-  res.render("home", {home: homeStartingContent})
+  res.render("home", {home: homeStartingContent, postsArray: postsArray})
 });
 
 //------------------------//
@@ -64,9 +66,14 @@ app.get("/compose", (req, res) => {
 
 app.post("/compose", (req, res) => {
 
-  console.log(req.body.journalPost)
+  const post = {
+    title: req.body.postTitle,
+    bodyContent: req.body.postBody
+  };
 
-  res.redirect("/compose")
+  postsArray.push(post)
+  
+  res.redirect("/")
 })
 
 //-------------------------//
