@@ -32,7 +32,7 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 app.get("/", (req, res) => {
 
-  res.render("home", {home: homeStartingContent, about: aboutContent, contact: contactContent})
+  res.render("home", {home: homeStartingContent})
 });
 
 //------------------------//
@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 
 app.get("/about", (req, res) => {
 
-  res.render("about")
+  res.render("about", {about: aboutContent})
 });
 //------------------------//
 //    Contact Routes      //
@@ -49,7 +49,7 @@ app.get("/about", (req, res) => {
 
 app.get("/contact", (req, res) => {
 
-  res.render("contact")
+  res.render("contact", {contact: contactContent})
 })
 
 //-------------------------//
