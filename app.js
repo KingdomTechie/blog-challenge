@@ -74,6 +74,14 @@ app.post("/compose", (req, res) => {
   postsArray.push(post)
   
   res.redirect("/")
+});
+
+//------------------------//
+//       Post Routes      //
+//------------------------//
+
+app.get("/posts/:postName", (req, res) => {
+  console.log(req.params.postName)
 })
 
 //-------------------------//
