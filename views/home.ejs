@@ -4,11 +4,10 @@
 <p><%= home %></p>
 
 <div>
-
-    <% for(let i = 0; i < postsArray.length; i++) { %>
-    <h3><%=postsArray[i].title %></h3>
-    <p><%=postsArray[i].bodyContent%></p>
-    <% }; %>
+    <% postsArray.forEach(function (post) { %>
+    <h3><%=post.title%></h3>
+    <p><%=post.bodyContent%></p>
+    <%  })%>
 
 </div>
 
