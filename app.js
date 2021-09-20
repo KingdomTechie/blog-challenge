@@ -52,6 +52,16 @@ app.get("/contact", (req, res) => {
   res.render("contact", {contact: contactContent})
 })
 
+//------------------------//
+//    Compose Routes      //
+//------------------------//
+
+app.get("/compose", (req, res) => {
+
+  res.render("compose")
+})
+
+
 //-------------------------//
 //         Port            //
 //-------------------------//
