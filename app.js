@@ -7,6 +7,7 @@
 const express = require("express");
 const ejs = require("ejs");
 const app = express();
+const _ = require("lodash")
 
 //------------------------//
 //      Middleware        //
@@ -77,14 +78,21 @@ app.post("/compose", (req, res) => {
 });
 
 //------------------------//
-//       Post Routes      //
+//      Posts Routes      //
 //------------------------//
 
 app.get("/posts/:postName", (req, res) => {
+
   const param = req.params.postName
 
+  console.log(param)
+
   postsArray.forEach((post) => {
-    if(post.title === param) {
+
+
+    if(_.kebabCase(_.lowerCase(post.title)) === _.kebabCase(_.lowerCase(param))) {
+      console.log(_.kebabCase(_.lowerCase(post.title)))
+      console.log(_.kebabCase(_.lowerCase(param)))
       console.log("We have a match!")
       res.redirect("/")
     } else {
