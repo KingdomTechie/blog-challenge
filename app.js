@@ -81,7 +81,18 @@ app.post("/compose", (req, res) => {
 //------------------------//
 
 app.get("/posts/:postName", (req, res) => {
-  console.log(req.params.postName)
+  const param = req.params.postName
+
+  postsArray.forEach((post) => {
+    if(post.title === param) {
+      console.log("We have a match!")
+      res.redirect("/")
+    } else {
+      console.log("No match found")
+      res.redirect("/")
+    }
+  })
+
 })
 
 //-------------------------//
