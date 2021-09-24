@@ -81,23 +81,24 @@ app.post("/compose", (req, res) => {
 //      Posts Routes      //
 //------------------------//
 
+app.get("/posts", (req, res) => {
+
+  res.render("post")
+})
+
 app.get("/posts/:postName", (req, res) => {
 
   const param = req.params.postName
 
-  console.log(param)
+  postsArray.forEach((post, i) => {
 
-  postsArray.forEach((post) => {
+    const postTitle = _.kebabCase(_.lowerCase(post.title))
+    const postParam =  _.kebabCase(_.lowerCase(param))
+    console.log(post)
 
-
-    if(_.kebabCase(_.lowerCase(post.title)) === _.kebabCase(_.lowerCase(param))) {
-      console.log(_.kebabCase(_.lowerCase(post.title)))
-      console.log(_.kebabCase(_.lowerCase(param)))
-      console.log("We have a match!")
-      res.redirect("/")
-    } else {
-      console.log("No match found")
-      res.redirect("/")
+    if(postTitle === postParam) {
+     
+      res.render("post", {title: post.title , content: post.bodyContent})
     }
   })
 
