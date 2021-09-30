@@ -8,7 +8,30 @@ const express = require("express");
 const ejs = require("ejs");
 const app = express();
 const _ = require("lodash")
+const mongoose = require("mongoose")
 
+//------------------------//
+//       Mongoose         //
+//------------------------//
+
+mongoose.connect("mongodb://localhost:27017/journalDB")
+
+const postSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true
+    },
+    body: {
+      type: String,
+      required: true
+    }
+  });
+
+  const Post = new mongoose.model("Post", postSchema);
+
+  Post.create({title: "Day 1 of Coding", body: "Testing my database!"})
+  
 //------------------------//
 //      Middleware        //
 //------------------------//
