@@ -5,9 +5,7 @@
 //------------------------//
 
 const express = require("express");
-const ejs = require("ejs");
 const app = express();
-const _ = require("lodash")
 const mongoose = require("mongoose")
 
 //------------------------//
@@ -30,10 +28,6 @@ const postSchema = new mongoose.Schema(
 
   const Post = new mongoose.model("Post", postSchema);
 
-  const createDummyPost = () => {
-    
-    Post.create({title: "Day 1 of Coding", body: "2nd Post!"})
-  }
 
   // createDummyPost()
   
@@ -55,7 +49,6 @@ const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pelle
 
 const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
 
-const postsArray = [];
 
 //------------------------//
 //      Home Routes       //
@@ -66,7 +59,7 @@ app.get("/", (req, res) => {
   Post.find({}, (err, allPosts) => {
     if (err) console.log(err);
 
-    console.log(allPosts);
+    
     res.render("home", {home: homeStartingContent, postsArray: allPosts})
   })
 
@@ -101,7 +94,6 @@ app.get("/compose", (req, res) => {
 
 app.post("/compose", (req, res) => {
 
-  
   Post.create({title: req.body.postTitle, body: req.body.postBody })
   
   res.redirect("/")
@@ -120,16 +112,10 @@ app.get("/posts/:postName", (req, res) => {
 
   const param = req.params.postName
 
-  postsArray.forEach((post, i) => {
+  Post.findOne({title: param}, (err, foundPost) => {
+    if(err) console.log(err);
 
-    const postTitle = _.kebabCase(_.lowerCase(post.title))
-    const postParam =  _.kebabCase(_.lowerCase(param))
-    console.log(post)
-
-    if(postTitle === postParam) {
-     
-      res.render("post", {title: post.title , content: post.bodyContent})
-    }
+    res.render("post", {title: foundPost.title , body: foundPost.body})
   })
 
 })
