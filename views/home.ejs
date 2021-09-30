@@ -6,9 +6,8 @@
 <div>
     <% postsArray.forEach(function (post) { %>
     <h3><%=post.title%></h3>
-    <% console.log(post.bodyContent.length) %>
-    <% if (post.bodyContent.length < 100) { %>
-        <p><%=post.bodyContent%></p><a href="/posts/<%=post.title%>">Read More</a>
+    <% if (post.body.length < 100) { %>
+        <p><%=post.body%></p><a href="/posts/<%=post.title%>">Read More</a>
     <% } else {  %>
     <p class= "readMore"><%=(post.bodyContent).slice(0,99).concat(" ... ")%></p><a href="/posts/<%=post.title%>">Read More</a>
     <%  } %>

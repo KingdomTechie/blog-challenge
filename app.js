@@ -30,7 +30,12 @@ const postSchema = new mongoose.Schema(
 
   const Post = new mongoose.model("Post", postSchema);
 
-  Post.create({title: "Day 1 of Coding", body: "Testing my database!"})
+  const createDummyPost = () => {
+    
+    Post.create({title: "Day 1 of Coding", body: "2nd Post!"})
+  }
+
+  // createDummyPost()
   
 //------------------------//
 //      Middleware        //
@@ -58,7 +63,13 @@ const postsArray = [];
 
 app.get("/", (req, res) => {
 
-  res.render("home", {home: homeStartingContent, postsArray: postsArray})
+  Post.find({}, (err, allPosts) => {
+    if (err) console.log(err);
+
+    console.log(allPosts);
+    res.render("home", {home: homeStartingContent, postsArray: allPosts})
+  })
+
 });
 
 //------------------------//
@@ -90,12 +101,8 @@ app.get("/compose", (req, res) => {
 
 app.post("/compose", (req, res) => {
 
-  const post = {
-    title: req.body.postTitle,
-    bodyContent: req.body.postBody
-  };
-
-  postsArray.push(post)
+  
+  Post.create({title: req.body.postTitle, body: req.body.postBody })
   
   res.redirect("/")
 });
